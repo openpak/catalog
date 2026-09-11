@@ -1,10 +1,16 @@
 # OpenPak catalog
 
-`catalog.json` is the honest status of every title and network feature OpenPak knows about:
-`live` works end to end on hardware, `beta` is deployed but not console-verified, `scaffold`
-is code waiting on a fact, `requestable` is listed for votes only. Edit the JSON, run
-`python3 gen.py` to regenerate the Markdown views, commit, push.
+`catalog.json` introduces titles and features to the website and the app: name, console,
+category, backend, and the status they start with. The website fetches this file from `main`
+every ten minutes and adds anything new.
 
-The website fetches this file from `main` on a timer and reseeds its title list, and the app
-reads the website's API, so a status change here reaches both without a release. The website
-also embeds a copy as a fallback for when GitHub is unreachable at start-up.
+**Status is owned by the website's database, not by this file.** Once a title exists there,
+its status and notes change from the titles page (an admin picks the status on the row, or
+promotes a requestable title from the Request-a-game dialog) and the site and the app read
+the row at once; the catalog's status for an existing title is ignored on refresh. Edit here to
+add a title or fix its category; run `python3 gen.py` to regenerate the Markdown views; commit,
+push.
+
+Status words: `live` works end to end on hardware, `beta` is deployed but not
+console-verified, `alpha` is partial, `scaffold` is code waiting on a fact, `requestable` is
+listed for votes only.
